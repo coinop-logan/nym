@@ -1,8 +1,11 @@
-module Nym exposing (Nym, renderNym, renderNymTemplate, binarySourceToNymTemplateResult, EyeQuadAndPupil2d, Pupil2d, EyeQuad2d)
+module Nym exposing
+    ( Nym, renderNym, renderNymTemplate, EyeQuadAndPupil2d, Pupil2d, EyeQuad2d, binarySourceToNymTemplateResult
+    , binarySourceToNymTemplate
+    )
 
 {-| Blarg.
 
-@docs Nym, renderNym, renderNymTemplate, EyeQuadAndPupil2d, Pupil2d, EyeQuad2d, binarySourceToNymTemplateResult
+@docs Nym, renderNym, renderNymTemplate, EyeQuadAndPupil2d, Pupil2d, EyeQuad2d, binarySourceToNymTemplateResult, binarySourceToNymTemplate
 
 -}
 
@@ -472,6 +475,7 @@ meterTriangleWithDefaults name colorResult v1Result v2Result v3Result =
         v3Result
         |> defaultAndLogEntityError name
 
+
 {-| Given a BinarySource, build a NymTemplate, but return a result
 -}
 binarySourceToNymTemplateResult : BinarySource -> Result ( NymTemplate, GenError ) Nym
@@ -482,6 +486,7 @@ binarySourceToNymTemplateResult =
                 finalizeTemplate template
                     |> Result.mapError (Tuple.pair template)
            )
+
 
 {-| Given a BinarySource, build a NymTemplate
 -}
