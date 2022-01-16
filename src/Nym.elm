@@ -1,8 +1,8 @@
-module Nym exposing (renderNym, binarySourceToNym, EyeQuadAndPupil2d, Pupil2d, EyeQuad2d)
+module Nym exposing (Nym, renderNym, binarySourceToNym, EyeQuadAndPupil2d, Pupil2d, EyeQuad2d)
 
 {-| Blarg.
 
-@docs renderNym, binarySourceToNym, EyeQuadAndPupil2d, Pupil2d, EyeQuad2d
+@docs Nym, renderNym, binarySourceToNym, EyeQuadAndPupil2d, Pupil2d, EyeQuad2d
 
 -}
 
@@ -30,18 +30,19 @@ import Utils exposing (..)
 import Vector2 exposing (Vector2)
 import Vector3 exposing (Vector3)
 
-
-{-|
-
-Given a `Nym`, render an Entity.
-
+{-| A Physical structure and coloring of a particular Nym.
 -}
 
+type alias Nym =
+    Types.Nym
+
+
+{-| Given a `Nym`, render an Entity.
+-}
 renderNym : Nym -> Scene3d.Entity ()
 renderNym =
     nymToOkTemplate
         >> renderNymTemplate False
-
 
 
 renderNymTemplate : Bool -> NymTemplate -> Scene3d.Entity ()
@@ -369,6 +370,7 @@ renderNymTemplate showDebugLines nymTemplate =
                 |> Vector3.toMetersVector
             )
 
+
 nymBoundingBoxCenterPoint : NymTemplate -> Result GenError Vector3
 nymBoundingBoxCenterPoint template =
     getBoundingBox template.structure
@@ -469,13 +471,8 @@ meterTriangleWithDefaults name colorResult v1Result v2Result v3Result =
         |> defaultAndLogEntityError name
 
 
-{-|
-
-Given a BinarySource, attempt to render a Nym.
-
+{-| Given a BinarySource, attempt to render a Nym.
 -}
-
-
 binarySourceToNym : BinarySource -> Result ( NymTemplate, GenError ) Nym
 binarySourceToNym =
     binarySourceToNymTemplate
@@ -731,35 +728,22 @@ nymToOkTemplate nym =
         }
 
 
-{-|
-
-temp
-
+{-| temp
 -}
-
 type alias EyeQuadAndPupil2d =
     { pupil : Pupil2d
     , eyeQuad : EyeQuad2d
     }
 
 
-{-|
-
-temp
-
+{-| temp
 -}
-
-
 type alias Pupil2d =
     List ( Vector2, Vector2, Vector2 )
 
 
-{-|
-
-temp
-
+{-| temp
 -}
-
 type alias EyeQuad2d =
     { bottomRight : Vector2
     , bottomLeft : Vector2
