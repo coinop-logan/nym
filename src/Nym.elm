@@ -5,16 +5,12 @@ import Color exposing (Color)
 import Direction3d exposing (Direction3d)
 import Generate
 import Html exposing (Html)
-import Length
 import LineSegment3d exposing (LineSegment3d)
-import List exposing (range)
 import List.Extra
-import Maybe.Extra
 import Pixels
 import Plane3d exposing (Plane3d)
 import Point2d exposing (Point2d)
 import Point3d exposing (Point3d)
-import Quantity
 import Result.Extra
 import Scene3d
 import Scene3d.Material as Material
@@ -27,7 +23,6 @@ import Types exposing (..)
 import Utils exposing (..)
 import Vector2 exposing (Vector2)
 import Vector3 exposing (Vector3)
-import Vector3d
 
 
 renderNym : Nym -> Scene3d.Entity ()
