@@ -1,8 +1,8 @@
-module Nym exposing (Nym, renderNym, renderNymTemplate, binarySourceToNym, EyeQuadAndPupil2d, Pupil2d, EyeQuad2d)
+module Nym exposing (Nym, renderNym, renderNymTemplate, binarySourceToNymTemplateResult, EyeQuadAndPupil2d, Pupil2d, EyeQuad2d)
 
 {-| Blarg.
 
-@docs Nym, renderNym, renderNymTemplate, binarySourceToNym, EyeQuadAndPupil2d, Pupil2d, EyeQuad2d
+@docs Nym, renderNym, renderNymTemplate, EyeQuadAndPupil2d, Pupil2d, EyeQuad2d, binarySourceToNymTemplateResult
 
 -}
 
@@ -45,7 +45,7 @@ renderNym =
         >> renderNymTemplate False
 
 
-{-| Given a `NymTempalte`, render an Entity
+{-| Given a `NymTemplate`, render an Entity
 -}
 renderNymTemplate : Bool -> NymTemplate -> Scene3d.Entity ()
 renderNymTemplate showDebugLines nymTemplate =
@@ -472,11 +472,10 @@ meterTriangleWithDefaults name colorResult v1Result v2Result v3Result =
         v3Result
         |> defaultAndLogEntityError name
 
-
-{-| Given a BinarySource, attempt to render a Nym.
+{-| Given a BinarySource, build a NymTemplate, but return a result
 -}
-binarySourceToNym : BinarySource -> Result ( NymTemplate, GenError ) Nym
-binarySourceToNym =
+binarySourceToNymTemplateResult : BinarySource -> Result ( NymTemplate, GenError ) Nym
+binarySourceToNymTemplateResult =
     binarySourceToNymTemplate
         >> TupleHelpers.tuple3Last
         >> (\template ->
@@ -484,7 +483,8 @@ binarySourceToNym =
                     |> Result.mapError (Tuple.pair template)
            )
 
-
+{-| Given a BinarySource, build a NymTemplate
+-}
 binarySourceToNymTemplate : BinarySource -> ( String, ( Int, List Int ), NymTemplate )
 binarySourceToNymTemplate source =
     let
