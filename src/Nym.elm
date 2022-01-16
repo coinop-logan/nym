@@ -1,8 +1,8 @@
-module Nym exposing (Nym, renderNym, binarySourceToNym, EyeQuadAndPupil2d, Pupil2d, EyeQuad2d)
+module Nym exposing (Nym, renderNym, renderNymTemplate, binarySourceToNym, EyeQuadAndPupil2d, Pupil2d, EyeQuad2d)
 
 {-| Blarg.
 
-@docs Nym, renderNym, binarySourceToNym, EyeQuadAndPupil2d, Pupil2d, EyeQuad2d
+@docs Nym, renderNym, renderNymTemplate, binarySourceToNym, EyeQuadAndPupil2d, Pupil2d, EyeQuad2d
 
 -}
 
@@ -30,9 +30,9 @@ import Utils exposing (..)
 import Vector2 exposing (Vector2)
 import Vector3 exposing (Vector3)
 
+
 {-| A Physical structure and coloring of a particular Nym.
 -}
-
 type alias Nym =
     Types.Nym
 
@@ -45,6 +45,8 @@ renderNym =
         >> renderNymTemplate False
 
 
+{-| Given a `NymTempalte`, render an Entity
+-}
 renderNymTemplate : Bool -> NymTemplate -> Scene3d.Entity ()
 renderNymTemplate showDebugLines nymTemplate =
     let
