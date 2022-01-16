@@ -174,11 +174,12 @@ fromIntString =
         >> Maybe.andThen fromHexString
 
 
-fromBigInt : BigInt -> Maybe BinarySource
+fromBigInt : BigInt -> BinarySource
 fromBigInt =
     BigInt.toHexString
         >> String.padLeft 64 '0'
-        >> fromHexString
+        >> Binary.fromHex
+        >> BinarySource
 
 
 hexCharToPaddedBitsString : Char -> Maybe String

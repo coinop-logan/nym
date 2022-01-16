@@ -3,9 +3,10 @@
     "name": "coinop-logan/nym",
     "summary": "Nym display",
     "license": "MIT",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "exposed-modules": [
-        "Nym"
+        "Nym",
+        "NymSource"
     ],
     "elm-version": "0.19.0 <= v < 0.20.0",
     "dependencies": {
