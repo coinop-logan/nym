@@ -1,14 +1,12 @@
-module Nym exposing
-    ( Nym, renderNym, renderNymTemplate, EyeQuadAndPupil2d, Pupil2d, EyeQuad2d, binarySourceToNymTemplateResult
-    , binarySourceToNymTemplate
-    )
+module Nym exposing (Nym, renderNym, renderNymTemplate, EyeQuadAndPupil2d, Pupil2d, EyeQuad2d, binarySourceToNymTemplateResult, binarySourceToNymTemplate, uintToRenderedNym)
 
 {-| Blarg.
 
-@docs Nym, renderNym, renderNymTemplate, EyeQuadAndPupil2d, Pupil2d, EyeQuad2d, binarySourceToNymTemplateResult, binarySourceToNymTemplate
+@docs uintToRenderedNym, Nym, renderNym, renderNymTemplate, EyeQuadAndPupil2d, Pupil2d, EyeQuad2d, binarySourceToNymTemplateResult, binarySourceToNymTemplate
 
 -}
 
+import BigInt exposing (BigInt)
 import BinarySource exposing (BinarySource)
 import Color exposing (Color)
 import Direction3d exposing (Direction3d)
@@ -32,6 +30,16 @@ import Types exposing (..)
 import Utils exposing (..)
 import Vector2 exposing (Vector2)
 import Vector3 exposing (Vector3)
+
+{-| Turn uint Nym NFT id into a rendered `Scene3d.Entity ()`
+-}
+uintToRenderedNym : BigInt -> Scene3d.Entity ()
+uintToRenderedNym id =
+    id
+        |> BinarySource.fromBigInt
+        |> binarySourceToNymTemplate
+        |> (\( a, b, c ) -> c)
+        |> renderNymTemplate False
 
 
 {-| A Physical structure and coloring of a particular Nym.
