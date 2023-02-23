@@ -64,7 +64,7 @@ type NymRenderError
 type alias Model =
     { mouseInput : MouseInput
     , laggedMouse : MouseInput
-    , nymResult : Result NymRenderError Nym
+    , nymResult : Result NymRenderError Nym.Nym
     , lastMouseMoveTime : Time.Posix
     , now : Time.Posix
     }
@@ -102,7 +102,7 @@ init nymDataString =
                 |> binarySourceFromDecIfPossibleOtherwiseHex
                 |> Result.fromMaybe MalformedIdentifier
                 |> Result.andThen
-                    (binarySourceToNym
+                    (Nym.binarySourceToNymTemplateResult
                         >> Result.mapError
                             (\e ->
                                 let
@@ -148,7 +148,7 @@ binarySourceFromDecIfPossibleOtherwiseHex ambiguousData =
                         |> BigInt.fromHexString
     in
     maybeBigintData
-        |> Maybe.andThen BinarySource.fromBigInt
+        |> Maybe.map BinarySource.fromBigInt
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -257,7 +257,7 @@ view model =
         viewNymOrError model.laggedMouse model.nymResult
 
 
-viewNymOrError : MouseInput -> Result NymRenderError Nym -> Element Msg
+viewNymOrError : MouseInput -> Result NymRenderError Nym.Nym -> Element Msg
 viewNymOrError laggedMouse nymResult =
     case nymResult of
         Ok nym ->
@@ -285,7 +285,7 @@ viewRenderError err =
                     Utils.genErrorToString genErr
 
 
-viewNym : MouseInput -> Nym -> Element Msg
+viewNym : MouseInput -> Nym.Nym -> Element Msg
 viewNym mouseInput nym =
     Element.html <|
         Html.div
